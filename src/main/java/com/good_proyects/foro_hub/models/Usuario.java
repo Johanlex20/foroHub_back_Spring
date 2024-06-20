@@ -31,6 +31,9 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "file_perfil")
+    private String filePerfil;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
