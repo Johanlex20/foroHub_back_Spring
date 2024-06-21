@@ -16,7 +16,7 @@ public class UsuarioRegistroDTO {
 
     @NotEmpty
     @Pattern(regexp = "[a-z0-9-]+")
-    @Size(min = 5, message = "El paswoord debe tener al menos 5 caracteres!")
+    @Size(min = 5, message = "El password debe tener al menos 5 caracteres!")
     private String password;
 
     @NotNull

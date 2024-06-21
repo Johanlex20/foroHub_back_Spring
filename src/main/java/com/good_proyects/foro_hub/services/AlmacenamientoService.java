@@ -1,6 +1,9 @@
 package com.good_proyects.foro_hub.services;
+import com.good_proyects.foro_hub.exceptions.BadRequestExcepton;
+import com.good_proyects.foro_hub.exceptions.ResourceNotFoundException;
 import com.good_proyects.foro_hub.services.iServices.iAlmacenamientoService;
 import jakarta.annotation.PostConstruct;
+import org.apache.coyote.BadRequestException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -28,7 +31,7 @@ public class AlmacenamientoService implements iAlmacenamientoService {
         try {
             Files.createDirectories(Paths.get(ALMACENAMIENTO_LOCAL));
         } catch (IOException e) {
-            throw new RuntimeException("ERROR ALMACENAMIENTO: Falla al inicializar ruta de almacenamiento!", e);
+            throw new BadRequestExcepton("ERROR ALMACENAMIENTO: Falla al inicializar ruta de almacenamiento!", e);
         }
     }
 
@@ -38,14 +41,14 @@ public class AlmacenamientoService implements iAlmacenamientoService {
         String nombreArchivo = UUID.randomUUID()+"."+ StringUtils.getFilenameExtension(nombreArchivoOriginal);
 
         if (archivo.isEmpty()){
-            throw new RuntimeException("ERROR VACIO: No es posible almacenar un archivo vacio!");
+            throw new ResourceNotFoundException("ERROR VACIO: No es posible almacenar un archivo vacio!");
         }
 
         try {
             InputStream entrada = archivo.getInputStream();
             Files.copy(entrada, Paths.get(ALMACENAMIENTO_LOCAL).resolve(nombreArchivo), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            throw new RuntimeException("ERROR:Falla al almacener el archivo ",e);
+            throw new BadRequestExcepton("ERROR:Falla al almacener el archivo ",e);
         }
         return nombreArchivo;
     }
@@ -64,10 +67,10 @@ public class AlmacenamientoService implements iAlmacenamientoService {
             if (recurso.exists() || recurso.isReadable()){
                 return recurso;
             }else {
-                throw new RuntimeException("ERROR LECTURA: No es posible leer el archivo! " + nombreArchivo);
+                throw new ResourceNotFoundException("ERROR LECTURA: No es posible leer el archivo! " + nombreArchivo);
             }
         }catch (MalformedURLException e){
-            throw new RuntimeException("ERROR: No se puede leer el archivo! "+nombreArchivo, e);
+            throw new BadRequestExcepton("ERROR: No se puede leer el archivo! "+nombreArchivo, e);
         }
     }
 
@@ -77,7 +80,7 @@ public class AlmacenamientoService implements iAlmacenamientoService {
         try {
             FileSystemUtils.deleteRecursively(archivo);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+             new BadRequestException("ERROR: No se puede eliminar el archivo! " + nombreArchivo);
         }
     }
 }
