@@ -1,5 +1,5 @@
 package com.good_proyects.foro_hub.models;
-import jakarta.annotation.Nonnull;
+import com.good_proyects.foro_hub.models.dtos.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -16,18 +16,14 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Nonnull
     @Column(length = 45)
     private String nombre;
 
-    @Nonnull
     @Column(length = 100)
     private String email;
 
-    @NonNull
     private String password;
 
-    @NonNull
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -42,8 +38,5 @@ public class Usuario {
 
     private Boolean activo;
 
-    public enum Role {
-            ADMIN,
-            USER
-    }
+
 }

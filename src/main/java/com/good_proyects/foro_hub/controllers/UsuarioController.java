@@ -1,6 +1,8 @@
 package com.good_proyects.foro_hub.controllers;
 import com.good_proyects.foro_hub.models.Usuario;
+import com.good_proyects.foro_hub.models.dtos.UsuarioRegistroDTO;
 import com.good_proyects.foro_hub.services.iServices.iUsuarioServices;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,14 +37,14 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private Usuario save(@RequestBody Usuario usuario){
-        return usuarioServices.save(usuario);
+    private Usuario save(@RequestBody @Valid UsuarioRegistroDTO usuarioRegistroDTO){
+        return usuarioServices.save(usuarioRegistroDTO);
     }
 
     @PutMapping(value = "/{id}")
 
-    private Usuario update(@PathVariable(value = "id") Integer id,@RequestBody Usuario usuario){
-        return usuarioServices.update(id, usuario);
+    private Usuario update(@PathVariable(value = "id") Integer id,@RequestBody @Valid UsuarioRegistroDTO usuarioRegistroDTO){
+        return usuarioServices.update(id, usuarioRegistroDTO);
     }
 
     @DeleteMapping(value = "/{id}")

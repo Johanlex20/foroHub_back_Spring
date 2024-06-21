@@ -1,5 +1,6 @@
 package com.good_proyects.foro_hub.services;
 import com.good_proyects.foro_hub.models.Usuario;
+import com.good_proyects.foro_hub.models.dtos.UsuarioRegistroDTO;
 import com.good_proyects.foro_hub.repository.iUsuarioRepository;
 import com.good_proyects.foro_hub.services.iServices.iUsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,33 +32,34 @@ public class UsuarioService implements iUsuarioServices {
         return usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("ERROR ID: id no encontrado en la base de datos!"));
     }
 
-
-    @Override
-    public Usuario save(Usuario usuario) {
-        Usuario nuevoUsuairo = new Usuario();
-        nuevoUsuairo.setNombre(usuario.getNombre());
-        nuevoUsuairo.setEmail(usuario.getEmail());
-        nuevoUsuairo.setPassword(usuario.getPassword());
-        nuevoUsuairo.setRole(usuario.getRole());
-        nuevoUsuairo.setActivo(Boolean.TRUE);
-        nuevoUsuairo.setCreatedAt(LocalDateTime.now());
-        return usuarioRepository.save(nuevoUsuairo);
+    String img = "02f7ab2c-c0c9-4f54-9134-d6dece39f4fa.jpg";
+    public Usuario save(UsuarioRegistroDTO usuarioRegistroDTO) {
+        Usuario usuario = new Usuario();
+        usuario.setNombre(usuarioRegistroDTO.getNombre());
+        usuario.setEmail(usuarioRegistroDTO.getEmail());
+        usuario.setPassword(usuarioRegistroDTO.getPassword());
+        usuario.setRole(usuarioRegistroDTO.getRole());
+        usuario.setActivo(Boolean.TRUE);
+        usuario.setCreatedAt(LocalDateTime.now());
+        usuario.setFilePerfil(img);
+        return usuarioRepository.save(usuario);
     }
 
     @Override
-    public Usuario update(Integer id, Usuario usuario) {
-        Usuario usuarioActualizado = findById(id);
+    public Usuario update(Integer id, UsuarioRegistroDTO usuarioRegistroDTO) {
+        Usuario usuario = findById(id);
 
-        if (usuarioActualizado != null){
-            usuarioActualizado.setNombre(usuario.getNombre());
-            usuarioActualizado.setEmail(usuario.getEmail());
-            usuarioActualizado.setPassword(usuario.getPassword());
-            usuarioActualizado.setRole(usuario.getRole());
-            usuarioActualizado.setUpdatedAt(LocalDateTime.now());
+        if (usuario != null){
+            usuario.setNombre(usuarioRegistroDTO.getNombre());
+            usuario.setEmail(usuarioRegistroDTO.getEmail());
+            usuario.setPassword(usuarioRegistroDTO.getPassword());
+            usuario.setRole(usuarioRegistroDTO.getRole());
+            usuario.setUpdatedAt(LocalDateTime.now());
+            usuario.setFilePerfil(img);
         }else {
             throw new RuntimeException("ERROR ACTUALIZAR: Usuario no se pudo actualizar!");
         }
-        return usuarioRepository.save(usuarioActualizado);
+        return usuarioRepository.save(usuario);
     }
 
     @Override
