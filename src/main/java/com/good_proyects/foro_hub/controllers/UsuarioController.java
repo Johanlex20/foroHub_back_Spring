@@ -42,7 +42,6 @@ public class UsuarioController {
     }
 
     @PutMapping(value = "/{id}")
-
     private Usuario update(@PathVariable(value = "id") Integer id,@RequestBody @Valid UsuarioRegistroDTO usuarioRegistroDTO){
         return usuarioServices.update(id, usuarioRegistroDTO);
     }
