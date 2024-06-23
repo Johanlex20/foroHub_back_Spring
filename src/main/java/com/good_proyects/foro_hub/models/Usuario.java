@@ -38,5 +38,4 @@ public class Usuario {
 
     private Boolean activo;
 
-
 }

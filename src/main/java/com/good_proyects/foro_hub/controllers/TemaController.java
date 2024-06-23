@@ -3,6 +3,7 @@ import com.good_proyects.foro_hub.models.Tema;
 import com.good_proyects.foro_hub.models.dtos.TemaActualizarDTO;
 import com.good_proyects.foro_hub.models.dtos.TemaDto;
 import com.good_proyects.foro_hub.services.iServices.iTemaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,12 +35,12 @@ public class TemaController {
     }
 
     @PostMapping
-    private Tema save(@RequestBody TemaDto temaDto){
+    private Tema save(@RequestBody @Valid TemaDto temaDto){
         return temaService.save(temaDto);
     }
 
     @PutMapping(value = "/{id}")
-    private Tema update(@PathVariable(value = "id") Integer id, @RequestBody TemaActualizarDTO temaActualizarDTO){
+    private Tema update(@PathVariable(value = "id") Integer id, @RequestBody @Valid TemaActualizarDTO temaActualizarDTO){
         return temaService.update(id,temaActualizarDTO);
     }
 

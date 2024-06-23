@@ -1,4 +1,6 @@
 package com.good_proyects.foro_hub.services;
+import com.good_proyects.foro_hub.exceptions.BadRequestExcepton;
+import com.good_proyects.foro_hub.exceptions.ResourceNotFoundException;
 import com.good_proyects.foro_hub.models.Tema;
 import com.good_proyects.foro_hub.models.Usuario;
 import com.good_proyects.foro_hub.models.dtos.TemaActualizarDTO;
@@ -7,6 +9,7 @@ import com.good_proyects.foro_hub.repository.iTemaRepository;
 import com.good_proyects.foro_hub.repository.iUsuarioRepository;
 import com.good_proyects.foro_hub.services.iServices.iTemaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -34,40 +37,67 @@ public class TemaService implements iTemaService {
 
     @Override
     public Tema findById(Integer id) {
-        return temaRepository.findById(id).orElseThrow(()-> new RuntimeException("ERROR ID: id no encontrado en la base de datos!"));
+        return temaRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("ERROR ID: id no encontrado en la base de datos!"));
     }
 
     @Override
     public Tema save(TemaDto temaDto) {
+        Tema tema = null;
 
-        // Validacion de campos nulos
-        if (temaDto.getTitulo() == null || temaDto.getMensaje() == null || temaDto.getGenero() == null || temaDto.getUsuarioId() == null) {
-            throw new IllegalArgumentException("Required fields are missing");
+        boolean tituloExiste = temaRepository.existsByTitulo(temaDto.getTitulo());
+        boolean mensajeExiste = temaRepository.existsByMensaje(temaDto.getMensaje());
+
+        if (tituloExiste ) {
+            throw new BadRequestExcepton("El titulo ya existe!");
+        }
+        if (mensajeExiste) {
+            throw new BadRequestExcepton("El mensaje ya exisite!");
         }
 
         Usuario usuario = usuarioRepository.findById(temaDto.getUsuarioId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
+                .orElseThrow(() -> new ResourceNotFoundException("ERROR ID: usuario id no encontrado!"));
 
-        Tema tema = new Tema();
-        tema.setTitulo(temaDto.getTitulo());
-        tema.setMensaje(temaDto.getMensaje());
-        tema.setGenero(temaDto.getGenero());
-        tema.setCreatedAt(LocalDateTime.now());
-        tema.setUsuarioId(usuario);
-        tema.setActivo(Boolean.TRUE);
-        return temaRepository.save(tema);
+        try {
+            tema = new Tema();
+            tema.setTitulo(temaDto.getTitulo());
+            tema.setMensaje(temaDto.getMensaje());
+            tema.setGenero(temaDto.getGenero());
+            tema.setCreatedAt(LocalDateTime.now());
+            tema.setUsuarioId(usuario);
+            tema.setActivo(Boolean.TRUE);
+        }catch (DataAccessException e){
+            throw new BadRequestExcepton("ERROR CREACION TEMA: Falla no es posible realizar el proceso!", e);
+        }
+
+       return temaRepository.save(tema);
     }
 
-
     public Tema update(Integer id, TemaActualizarDTO temaActualizarDTO) {
-        Tema actualizarTema = findById(id);
+        Tema tema = findById(id);
 
-        actualizarTema.setTitulo(temaActualizarDTO.getTitulo());
-        actualizarTema.setMensaje(temaActualizarDTO.getMensaje());
-        actualizarTema.setGenero(temaActualizarDTO.getGenero());
-        actualizarTema.setUpdatedAt(LocalDateTime.now());
+        boolean tituloExiste = temaRepository.existsByTituloAndIdNot(temaActualizarDTO.getTitulo(), id);
+        boolean mensajeExiste = temaRepository.existsByMensajeAndIdNot(temaActualizarDTO.getMensaje(), id);
 
-        return temaRepository.save(actualizarTema);
+        if (tituloExiste ) {
+            throw new BadRequestExcepton("El titulo ya existe!");
+        }
+        if (mensajeExiste) {
+            throw new BadRequestExcepton("El mensaje ya exisite!");
+        }
+
+        try{
+            if (tema != null){
+                tema.setTitulo(temaActualizarDTO.getTitulo());
+                tema.setMensaje(temaActualizarDTO.getMensaje());
+                tema.setGenero(temaActualizarDTO.getGenero());
+                tema.setUpdatedAt(LocalDateTime.now());
+            }else {
+                throw new BadRequestExcepton("ERROR ACTUALIZAR: No se pudo actualizar tema!");
+            }
+        }catch (DataAccessException e){
+            throw new BadRequestExcepton("ERROR ACTUALIZACION: Falla no es posible realizar el proceso!" , e);
+        }
+        return temaRepository.save(tema);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.good_proyects.foro_hub.models;
 import com.good_proyects.foro_hub.models.dtos.Genero;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +19,10 @@ public class Tema {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true, length = 100 )
+    @Column(unique = true, length = 150 )
     private String titulo;
 
-    @Column(unique = true, length = 500)
+    @Column(unique = true, length = 1500)
     private String mensaje;
 
     @Enumerated(EnumType.STRING)
