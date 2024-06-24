@@ -25,7 +25,7 @@ public class TemaController {
     }
 
     @GetMapping
-    private Page<Tema> paginate(@PageableDefault(sort = "titulo",direction = Sort.Direction.ASC ,size = 5) Pageable pageable){
+    private Page<Tema> paginate(@PageableDefault(sort = "createdAt",direction = Sort.Direction.ASC ,size = 10 ) Pageable pageable){
         return temaService.paginate(pageable);
     }
 
