@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -48,10 +49,15 @@ public class UsuarioController {
         return usuarioServices.update(id, usuarioRegistroDTO);
     }
 
+//    @DeleteMapping(value = "/{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    Boolean delete(@PathVariable(value = "id") Integer id){
+//        return usuarioServices.delete(id);
+//    }
+
     @DeleteMapping(value = "/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    Boolean delete(@PathVariable(value = "id") Integer id){
-        return usuarioServices.delete(id);
+    ResponseEntity<?> eliminarUsuario(@PathVariable(value = "id") Integer id){
+        return usuarioServices.eliminarUsuario(id);
     }
 
 }

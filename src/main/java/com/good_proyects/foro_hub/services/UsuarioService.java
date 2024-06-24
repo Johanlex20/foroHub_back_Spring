@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -97,11 +98,23 @@ public class UsuarioService implements iUsuarioServices {
         return manejoRespuestaCortaUsuarioCliente(usuario);
     }
 
-    @Override
-    public Boolean delete(Integer id) {
-        usuarioRepository.deleteById(id);
-        return true;
+//    @Override
+//    public Boolean delete(Integer id) {
+//        usuarioRepository.deleteById(id);
+//        return true;
+//    }
+
+    public ResponseEntity<?> eliminarUsuario(Integer id) {
+        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+        if (usuario == null) {
+            return ResponseEntity.notFound().build();
+        }
+        usuario.desactivarUsuario();
+        usuarioRepository.save(usuario); // Assuming you need to save the changes
+        return ResponseEntity.noContent().build();
     }
+
+
 
     private UsuarioDTO manejoRespuestaUsuarioCliente(Usuario usuario) {
         UsuarioDTO  usuarioDTO = new UsuarioDTO();

@@ -47,4 +47,8 @@ public class Usuario {
     @OneToMany(mappedBy = "usuarioId", fetch = FetchType.LAZY)
     private List<Respuesta> respuestas;
 
+    public void desactivarUsuario(){
+        this.activo = false;
+    }
+
 }
