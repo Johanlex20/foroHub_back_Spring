@@ -20,27 +20,27 @@ public class TemaController {
     private iTemaService temaService;
 
     @GetMapping(value = "/list")
-    private List<Tema> findAll(){
+    private List<TemaDto> findAll(){
         return temaService.findAll();
     }
 
     @GetMapping
-    private Page<Tema> paginate(@PageableDefault(sort = "createdAt",direction = Sort.Direction.ASC ,size = 10 ) Pageable pageable){
+    private Page<TemaDto> paginate(@PageableDefault(sort = "createdAt",direction = Sort.Direction.ASC ,size = 10 ) Pageable pageable){
         return temaService.paginate(pageable);
     }
 
     @GetMapping(value = "/{id}")
-    private Tema findById(@PathVariable(value = "id") Integer id){
+    private TemaDto findById(@PathVariable(value = "id") Integer id){
         return temaService.findById(id);
     }
 
     @PostMapping
-    private Tema save(@RequestBody @Valid TemaDto temaDto){
+    private TemaDto save(@RequestBody @Valid TemaDto temaDto){
         return temaService.save(temaDto);
     }
 
     @PutMapping(value = "/{id}")
-    private Tema update(@PathVariable(value = "id") Integer id, @RequestBody @Valid TemaActualizarDTO temaActualizarDTO){
+    private TemaDto update(@PathVariable(value = "id") Integer id, @RequestBody @Valid TemaActualizarDTO temaActualizarDTO){
         return temaService.update(id,temaActualizarDTO);
     }
 

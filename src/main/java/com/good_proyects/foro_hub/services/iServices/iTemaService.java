@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface iTemaService {
 
-    List<Tema> findAll();
-    Page<Tema> paginate(Pageable pageable);
-    Tema findById(Integer id);
-    Tema save(TemaDto temaDto);
-    Tema update(Integer id, TemaActualizarDTO temaActualizarDTO);
+    List<TemaDto> findAll();
+    Page<TemaDto> paginate(Pageable pageable);
+    TemaDto findById(Integer id);
+    TemaDto save(TemaDto temaDto);
+    TemaDto update(Integer id, TemaActualizarDTO temaActualizarDTO);
     Boolean delete(Integer id);
 
 }

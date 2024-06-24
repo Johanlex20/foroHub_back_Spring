@@ -1,8 +1,13 @@
 package com.good_proyects.foro_hub.models;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.good_proyects.foro_hub.models.dtos.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -10,6 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Usuario {
 
     @Id
@@ -37,5 +43,13 @@ public class Usuario {
     private LocalDateTime updatedAt;
 
     private Boolean activo;
+    @OneToMany(mappedBy = "usuarioId", fetch = FetchType.LAZY)
+    //@JsonBackReference
+    private List<Tema> temas;
+
+    @OneToMany(mappedBy = "usuarioId", fetch = FetchType.LAZY)
+    //@JsonBackReference
+    //@JsonIgnoreProperties("usuarioId") // Ignora el campo usuarioId de cada respuesta para evitar la recursión
+    private List<Respuesta> respuestas;
 
 }
