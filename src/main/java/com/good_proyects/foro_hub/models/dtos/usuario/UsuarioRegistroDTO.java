@@ -1,4 +1,5 @@
-package com.good_proyects.foro_hub.models.dtos;
+package com.good_proyects.foro_hub.models.dtos.usuario;
+import com.good_proyects.foro_hub.models.dtos.Role;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 

@@ -1,7 +1,5 @@
 package com.good_proyects.foro_hub.models;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.good_proyects.foro_hub.models.dtos.Role;
 import jakarta.persistence.*;
@@ -44,12 +42,9 @@ public class Usuario {
 
     private Boolean activo;
     @OneToMany(mappedBy = "usuarioId", fetch = FetchType.LAZY)
-    //@JsonBackReference
     private List<Tema> temas;
 
     @OneToMany(mappedBy = "usuarioId", fetch = FetchType.LAZY)
-    //@JsonBackReference
-    //@JsonIgnoreProperties("usuarioId") // Ignora el campo usuarioId de cada respuesta para evitar la recursión
     private List<Respuesta> respuestas;
 
 }

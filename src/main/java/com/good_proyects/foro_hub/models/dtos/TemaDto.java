@@ -1,6 +1,5 @@
 package com.good_proyects.foro_hub.models.dtos;
 import com.good_proyects.foro_hub.models.Respuesta;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;

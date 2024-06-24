@@ -1,17 +1,19 @@
 package com.good_proyects.foro_hub.services.iServices;
 import com.good_proyects.foro_hub.models.Usuario;
-import com.good_proyects.foro_hub.models.dtos.UsuarioRegistroDTO;
+import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioDTO;
+import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioDtoRespuesta;
+import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioRegistroDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface iUsuarioServices {
 
-    List<Usuario> findAll();
-    Page<Usuario> paginate(Pageable pageable);
-    Usuario findById(Integer id);
-    Usuario save(UsuarioRegistroDTO usuarioRegistroDTO);
-    Usuario update(Integer id, UsuarioRegistroDTO usuarioRegistroDTO);
+    List<UsuarioDTO> findAll();
+    Page<UsuarioDTO> paginate(Pageable pageable);
+    UsuarioDTO findById(Integer id);
+    UsuarioDTO save(UsuarioRegistroDTO usuarioRegistroDTO);
+    UsuarioDTO update(Integer id, UsuarioRegistroDTO usuarioRegistroDTO);
     Boolean delete(Integer id);
 
 }

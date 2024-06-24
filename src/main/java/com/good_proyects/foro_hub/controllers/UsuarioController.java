@@ -1,6 +1,8 @@
 package com.good_proyects.foro_hub.controllers;
 import com.good_proyects.foro_hub.models.Usuario;
-import com.good_proyects.foro_hub.models.dtos.UsuarioRegistroDTO;
+import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioDTO;
+import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioDtoRespuesta;
+import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioRegistroDTO;
 import com.good_proyects.foro_hub.services.iServices.iUsuarioServices;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,29 +22,29 @@ public class UsuarioController {
     private iUsuarioServices usuarioServices;
 
     @GetMapping(value = "/list")
-    private List<Usuario> findAll(){
+    private List<UsuarioDTO> findAll(){
         return usuarioServices.findAll();
     }
 
     @GetMapping
-    public Page<Usuario> paginate(@PageableDefault(sort = "nombre", direction = Sort.Direction.ASC, size = 2) Pageable pageable) {
+    public Page<UsuarioDTO> paginate(@PageableDefault(sort = "nombre", direction = Sort.Direction.ASC, size = 2) Pageable pageable) {
         return usuarioServices.paginate(pageable);
     }
 
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private Usuario findById(@PathVariable(value = "id") Integer id){
+    private UsuarioDTO findById(@PathVariable(value = "id") Integer id){
         return usuarioServices.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private Usuario save(@RequestBody @Valid UsuarioRegistroDTO usuarioRegistroDTO){
+    private UsuarioDTO save(@RequestBody @Valid UsuarioRegistroDTO usuarioRegistroDTO){
         return usuarioServices.save(usuarioRegistroDTO);
     }
 
     @PutMapping(value = "/{id}")
-    private Usuario update(@PathVariable(value = "id") Integer id,@RequestBody @Valid UsuarioRegistroDTO usuarioRegistroDTO){
+    private UsuarioDTO update(@PathVariable(value = "id") Integer id,@RequestBody @Valid UsuarioRegistroDTO usuarioRegistroDTO){
         return usuarioServices.update(id, usuarioRegistroDTO);
     }
 
