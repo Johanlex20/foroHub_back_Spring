@@ -3,7 +3,6 @@ import com.good_proyects.foro_hub.exceptions.BadRequestExcepton;
 import com.good_proyects.foro_hub.exceptions.ResourceNotFoundException;
 import com.good_proyects.foro_hub.services.iServices.iAlmacenamientoService;
 import jakarta.annotation.PostConstruct;
-import org.apache.coyote.BadRequestException;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -80,7 +79,7 @@ public class AlmacenamientoService implements iAlmacenamientoService {
         try {
             FileSystemUtils.deleteRecursively(archivo);
         } catch (IOException e) {
-             new BadRequestException("ERROR: No se puede eliminar el archivo! " + nombreArchivo);
+            throw new BadRequestExcepton("ERROR: No se puede eliminar el archivo! " + nombreArchivo);
         }
     }
 }

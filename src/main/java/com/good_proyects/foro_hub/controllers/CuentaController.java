@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping(value = "/api")
 @AllArgsConstructor
-public class AutenticacionController {
+public class CuentaController {
 
     private final iUsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
@@ -31,10 +31,10 @@ public class AutenticacionController {
         Usuario usuario = new Usuario();
         usuario.setNombre(usuarioRegistroDTO.getNombre());
         usuario.setEmail(usuarioRegistroDTO.getEmail());
-        usuario.setPassword(usuarioRegistroDTO.getPassword());
-
         usuario.setPassword(passwordEncoder.encode(usuarioRegistroDTO.getPassword()));
         usuario.setRole(usuarioRegistroDTO.getRole());
+        usuario.setFilePerfil(usuarioRegistroDTO.getFilePerfil());
+        usuario.setActivo(Boolean.TRUE);
         usuario.setCreatedAt(LocalDateTime.now());
 
         usuarioRepository.save(usuario);

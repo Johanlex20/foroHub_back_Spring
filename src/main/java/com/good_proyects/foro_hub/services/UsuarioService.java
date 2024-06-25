@@ -11,6 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,8 +19,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService implements iUsuarioServices {
+
     @Autowired
     private iUsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<UsuarioDTO> findAll() {
@@ -57,7 +62,7 @@ public class UsuarioService implements iUsuarioServices {
             usuario = new Usuario();
             usuario.setNombre(usuarioRegistroDTO.getNombre());
             usuario.setEmail(usuarioRegistroDTO.getEmail());
-            usuario.setPassword(usuarioRegistroDTO.getPassword());
+            usuario.setPassword(passwordEncoder.encode(usuarioRegistroDTO.getPassword()));
             usuario.setRole(usuarioRegistroDTO.getRole());
             usuario.setActivo(Boolean.TRUE);
             usuario.setCreatedAt(LocalDateTime.now());
@@ -84,7 +89,7 @@ public class UsuarioService implements iUsuarioServices {
             if (usuario != null){
                 usuario.setNombre(usuarioRegistroDTO.getNombre());
                 usuario.setEmail(usuarioRegistroDTO.getEmail());
-                usuario.setPassword(usuarioRegistroDTO.getPassword());
+                usuario.setPassword(passwordEncoder.encode(usuarioRegistroDTO.getPassword()));
                 usuario.setRole(usuarioRegistroDTO.getRole());
                 usuario.setUpdatedAt(LocalDateTime.now());
                 usuario.setFilePerfil(img);

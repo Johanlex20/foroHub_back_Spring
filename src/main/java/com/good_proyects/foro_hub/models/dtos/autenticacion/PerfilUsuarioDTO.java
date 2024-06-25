@@ -1,7 +1,13 @@
 package com.good_proyects.foro_hub.models.dtos.autenticacion;
 import com.good_proyects.foro_hub.models.dtos.Role;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class AutenticacionUsuarioDTO {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class PerfilUsuarioDTO {
 
     private String nombre;
     private String email;

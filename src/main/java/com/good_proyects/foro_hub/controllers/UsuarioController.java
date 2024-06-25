@@ -1,7 +1,5 @@
 package com.good_proyects.foro_hub.controllers;
-import com.good_proyects.foro_hub.models.Usuario;
 import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioDTO;
-import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioDtoRespuesta;
 import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioRegistroDTO;
 import com.good_proyects.foro_hub.services.iServices.iUsuarioServices;
 import jakarta.validation.Valid;
