@@ -5,8 +5,8 @@ import com.good_proyects.foro_hub.models.dtos.tema.Genero;
 import com.good_proyects.foro_hub.models.dtos.tema.TemaDto;
 import com.good_proyects.foro_hub.repository.iTemaRepository;
 import com.good_proyects.foro_hub.services.iServices.iHomeService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/home")
+@AllArgsConstructor
 public class HomeController implements iHomeService {
 
-    @Autowired
-    private iTemaRepository temaRepository;
+    private final iTemaRepository temaRepository;
 
     @Override
     @GetMapping("/categoria/{genero}")

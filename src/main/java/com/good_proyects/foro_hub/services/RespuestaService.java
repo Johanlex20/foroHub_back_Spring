@@ -9,8 +9,8 @@ import com.good_proyects.foro_hub.repository.iRespuestaRepository;
 import com.good_proyects.foro_hub.repository.iTemaRepository;
 import com.good_proyects.foro_hub.repository.iUsuarioRepository;
 import com.good_proyects.foro_hub.services.iServices.iRespuestaService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,16 +19,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class RespuestaService implements iRespuestaService {
 
-    @Autowired
-    private iRespuestaRepository respuestaRepository;
-
-    @Autowired
-    private iUsuarioRepository usuarioRepository;
-
-    @Autowired
-    private iTemaRepository temaRepository;
+    private final iRespuestaRepository respuestaRepository;
+    private final iUsuarioRepository usuarioRepository;
+    private final iTemaRepository temaRepository;
 
     @Override
     public List<RespuestaDTO> findAll() {

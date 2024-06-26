@@ -31,10 +31,10 @@ public class CuentaController {
         //Usuario usuario = new Usuario();
         Usuario usuario = new ModelMapper().map(usuarioRegistroDTO,Usuario.class);
         usuario.setPassword(passwordEncoder.encode(usuarioRegistroDTO.getPassword()));
-        usuario.setFilePerfil(usuarioRegistroDTO.getFilePerfil());
         usuario.setActivo(Boolean.TRUE);
         usuario.setCreatedAt(LocalDateTime.now());
         usuarioRepository.save(usuario);
+//        usuario.setFilePerfil(usuarioRegistroDTO.getFilePerfil());
 //        usuario.setNombre(usuarioRegistroDTO.getNombre());
 //        usuario.setEmail(usuarioRegistroDTO.getEmail());
 //        usuario.setRole(usuarioRegistroDTO.getRole());

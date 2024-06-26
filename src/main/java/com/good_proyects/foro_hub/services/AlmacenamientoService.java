@@ -3,6 +3,7 @@ import com.good_proyects.foro_hub.exceptions.BadRequestExcepton;
 import com.good_proyects.foro_hub.exceptions.ResourceNotFoundException;
 import com.good_proyects.foro_hub.services.iServices.iAlmacenamientoService;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
@@ -22,13 +23,16 @@ import java.util.UUID;
 //por si falla poner @AllArgsConstructor
 public class AlmacenamientoService implements iAlmacenamientoService {
 
-    private final static String ALMACENAMIENTO_LOCAL = "mediafile";
+    //private final static String ALMACENAMIENTO_LOCAL = "mediafile";
+
+    @Value("${app.forohub.location}")
+    private String almacenamientoLocal;
 
     @PostConstruct
     @Override
     public void iniciar() {
         try {
-            Files.createDirectories(Paths.get(ALMACENAMIENTO_LOCAL));
+            Files.createDirectories(Paths.get(almacenamientoLocal));
         } catch (IOException e) {
             throw new BadRequestExcepton("ERROR ALMACENAMIENTO: Falla al inicializar ruta de almacenamiento!", e);
         }
@@ -45,7 +49,7 @@ public class AlmacenamientoService implements iAlmacenamientoService {
 
         try {
             InputStream entrada = archivo.getInputStream();
-            Files.copy(entrada, Paths.get(ALMACENAMIENTO_LOCAL).resolve(nombreArchivo), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(entrada, Paths.get(almacenamientoLocal).resolve(nombreArchivo), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new BadRequestExcepton("ERROR:Falla al almacener el archivo ",e);
         }
@@ -54,7 +58,7 @@ public class AlmacenamientoService implements iAlmacenamientoService {
 
     @Override
     public Path cargar(String nombreArchivo) {
-        return Paths.get(ALMACENAMIENTO_LOCAL).resolve(nombreArchivo);
+        return Paths.get(almacenamientoLocal).resolve(nombreArchivo);
     }
 
     @Override

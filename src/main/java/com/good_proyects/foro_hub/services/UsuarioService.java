@@ -6,8 +6,8 @@ import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioDTO;
 import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioRegistroDTO;
 import com.good_proyects.foro_hub.repository.iUsuarioRepository;
 import com.good_proyects.foro_hub.services.iServices.iUsuarioServices;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,13 +19,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class UsuarioService implements iUsuarioServices {
 
-    @Autowired
-    private iUsuarioRepository usuarioRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final iUsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<UsuarioDTO> findAll() {
@@ -48,7 +46,6 @@ public class UsuarioService implements iUsuarioServices {
         return manejoRespuestaUsuario(usuario);
     }
 
-   // String img = "02f7ab2c-c0c9-4f54-9134-d6dece39f4fa.jpg";
     public UsuarioDTO save(UsuarioRegistroDTO usuarioRegistroDTO) {
         boolean usuarioExiste =usuarioRepository.existsByEmail(usuarioRegistroDTO.getEmail());
 
@@ -105,11 +102,6 @@ public class UsuarioService implements iUsuarioServices {
         return manejoRespuestaUsuario(usuario);
     }
 
-//    @Override
-//    public Boolean delete(Integer id) {
-//        usuarioRepository.deleteById(id);
-//        return true;
-//    }
 
     public ResponseEntity<?> eliminarUsuario(Integer id) {
         Usuario usuario = usuarioRepository.findById(id).orElse(null);
