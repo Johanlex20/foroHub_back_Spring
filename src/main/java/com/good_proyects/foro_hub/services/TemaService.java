@@ -4,13 +4,11 @@ import com.good_proyects.foro_hub.exceptions.ResourceNotFoundException;
 import com.good_proyects.foro_hub.models.Respuesta;
 import com.good_proyects.foro_hub.models.Tema;
 import com.good_proyects.foro_hub.models.Usuario;
-import com.good_proyects.foro_hub.models.dtos.respuesta.RespuestaDTO;
 import com.good_proyects.foro_hub.models.dtos.respuesta.RespuestaTemaDTO;
 import com.good_proyects.foro_hub.models.dtos.tema.TemaActualizarDTO;
 import com.good_proyects.foro_hub.models.dtos.tema.TemaDto;
 import com.good_proyects.foro_hub.repository.iTemaRepository;
 import com.good_proyects.foro_hub.repository.iUsuarioRepository;
-import com.good_proyects.foro_hub.services.iServices.iRespuestaService;
 import com.good_proyects.foro_hub.services.iServices.iTemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -34,20 +32,20 @@ public class TemaService implements iTemaService {
     public List<TemaDto> findAll() {
         List<Tema>temas = temaRepository.findAll();
         return temas.stream()
-                .map(this::manejoRespuestaCliente)// Transforma cada Tema a TemaDto reducido
+                .map(tema -> manejoRespuestaCliente(tema, true))// Transforma cada Tema a TemaDto reducido
                 .collect(Collectors.toList());
     }
 
     @Override
     public Page<TemaDto> paginate(Pageable pageable) {
         Page<Tema> temas = temaRepository.findAll(pageable);
-        return temas.map(this::manejoRespuestaCliente);
+        return temas.map(tema -> manejoRespuestaCliente(tema, true));
     }
 
     public TemaDto findById(Integer id) {
         Tema tema = temaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tema no encontrado con ID: " + id));
-        return manejoRespuestaCliente(tema);
+        return manejoRespuestaCliente(tema, true);
     }
 
     public TemaDto save(TemaDto temaDto) {
@@ -79,7 +77,7 @@ public class TemaService implements iTemaService {
         }catch (DataAccessException e){
             throw new BadRequestExcepton("ERROR CREACION TEMA: Falla no es posible realizar el proceso!", e);
         }
-        return manejoRespuestaCliente(tema);
+        return manejoRespuestaCliente(tema, true);
     }
 
     public TemaDto update(Integer id, TemaActualizarDTO temaActualizarDTO) {
@@ -109,8 +107,7 @@ public class TemaService implements iTemaService {
         }catch (DataAccessException e){
             throw new BadRequestExcepton("ERROR ACTUALIZACION: Falla no es posible realizar el proceso!" , e);
         }
-
-        return manejorRespuestaClienteCorta(tema);
+        return manejoRespuestaCliente(tema, false);
     }
 
     @Override
@@ -119,7 +116,7 @@ public class TemaService implements iTemaService {
         return true;
     }
 
-    private TemaDto manejoRespuestaCliente(Tema tema) {
+    private TemaDto manejoRespuestaCliente(Tema tema, boolean incluirRespuestas) {
         TemaDto temaDto = new TemaDto();
         temaDto.setId(tema.getId());
         temaDto.setTitulo(tema.getTitulo());
@@ -130,47 +127,27 @@ public class TemaService implements iTemaService {
         temaDto.setCreatedAt(tema.getCreatedAt());
         temaDto.setUpdatedAt(tema.getUpdatedAt());
         temaDto.setActivo(tema.getActivo());
-        //temaDto.setRespuestas(tema.getRespuestas());
 
-        // Mapeo de respuestas si es necesario
-        if (tema.getRespuestas() != null && !tema.getRespuestas().isEmpty()) {
+        // Mapeo de respuestas
+        if (incluirRespuestas && tema.getRespuestas() != null && !tema.getRespuestas().isEmpty()) {
             List<RespuestaTemaDTO> respuestasDto = tema.getRespuestas().stream()
                     .map(this::manejoRespuesta) // Método para mapear Respuesta a RespuestaDTO
                     .collect(Collectors.toList());
             temaDto.setRespuestas(respuestasDto);
         }
-
         return temaDto;
     }
 
     // Método para mapear Respuesta a RespuestaDTO
     private RespuestaTemaDTO manejoRespuesta(Respuesta respuesta) {
         RespuestaTemaDTO respuestaDto = new RespuestaTemaDTO();
+
         respuestaDto.setId(respuesta.getId());
         respuestaDto.setMensajeRespuesta(respuesta.getMensajeRespuesta());
-        //respuestaDto.setTemaId(respuesta.getTemaId().getId());
         respuestaDto.setUsuarioId(respuesta.getUsuarioId().getId());
-        //respuestaDto.setActivo(respuesta.getActivo());
-        //respuestaDto.setCreatedAt(respuesta.getCreatedAt());
-        //respuestaDto.setUpdatedAt(respuesta.getUpdatedAt());
+        respuestaDto.setUsuarioNombre(respuesta.getUsuarioId().getNombre());
 
-        // Otros campos de RespuestaDTO que necesites
         return respuestaDto;
     }
 
-    private TemaDto manejorRespuestaClienteCorta(Tema tema) {
-        TemaDto temaDto = new TemaDto();
-        temaDto.setId(tema.getId());
-        temaDto.setTitulo(tema.getTitulo());
-        temaDto.setMensaje(tema.getMensaje());
-        temaDto.setGenero(tema.getGenero());
-        temaDto.setUsuarioId(tema.getUsuarioId().getId());
-        temaDto.setUsuarioNombre(tema.getUsuarioId().getNombre());
-        temaDto.setCreatedAt(tema.getCreatedAt());
-        temaDto.setUpdatedAt(tema.getUpdatedAt());
-        temaDto.setActivo(tema.getActivo());
-        //temaDto.setRespuestas(tema.getRespuestas()); // Aquí puedes ajustar según tus necesidades
-
-        return temaDto;
-    }
 }
