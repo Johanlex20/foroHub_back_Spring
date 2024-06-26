@@ -3,6 +3,7 @@ import com.good_proyects.foro_hub.models.Respuesta;
 import com.good_proyects.foro_hub.models.dtos.respuesta.RespuestaDTO;
 import com.good_proyects.foro_hub.services.RespuestaService;
 import com.good_proyects.foro_hub.services.iServices.iRespuestaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,13 +46,13 @@ public class RespuestaController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public RespuestaDTO save(@RequestBody RespuestaDTO respuestaDTO){
+    public RespuestaDTO save(@RequestBody @Valid RespuestaDTO respuestaDTO){
         return respuestaService.save(respuestaDTO);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PutMapping(value = "/{id}")
-    RespuestaDTO update(@PathVariable(value = "id") Integer id,@RequestBody RespuestaDTO respuestaDTO){
+    RespuestaDTO update(@PathVariable(value = "id") Integer id, @RequestBody @Valid RespuestaDTO respuestaDTO){
         return respuestaService.update(id,respuestaDTO);
     }
 

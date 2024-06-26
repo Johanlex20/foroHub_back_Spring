@@ -1,11 +1,8 @@
 package com.good_proyects.foro_hub.models.dtos.tema;
-import com.good_proyects.foro_hub.models.Respuesta;
-import com.good_proyects.foro_hub.models.dtos.respuesta.RespuestaDTO;
 import com.good_proyects.foro_hub.models.dtos.respuesta.RespuestaTemaDTO;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
