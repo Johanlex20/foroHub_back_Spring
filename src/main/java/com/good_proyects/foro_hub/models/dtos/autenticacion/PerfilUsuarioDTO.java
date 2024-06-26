@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PerfilUsuarioDTO {
 
+
     private String nombre;
     private String email;
     private String password;
     private Role role;
+    private Integer id;
 
 }

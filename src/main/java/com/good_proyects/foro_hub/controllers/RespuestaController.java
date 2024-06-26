@@ -1,11 +1,20 @@
 package com.good_proyects.foro_hub.controllers;
 import com.good_proyects.foro_hub.models.Respuesta;
+import com.good_proyects.foro_hub.models.dtos.respuesta.RespuestaDTO;
+import com.good_proyects.foro_hub.services.RespuestaService;
 import com.good_proyects.foro_hub.services.iServices.iRespuestaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/respuesta")
@@ -14,9 +23,43 @@ public class RespuestaController {
     @Autowired
     private iRespuestaService respuestaService;
 
+    @Autowired
+    public RespuestaController(RespuestaService respuestaService) {
+        this.respuestaService = respuestaService;
+    }
+
+    @GetMapping(value = "/list")
+    List<RespuestaDTO> findAll(){
+        return respuestaService.findAll();
+    }
+
     @GetMapping("/{id}")
-    Respuesta findById(@PathVariable(value = "id") Integer id){
+    public RespuestaDTO findById(@PathVariable(value = "id") Integer id){
         return respuestaService.findById(id);
     }
+
+    @GetMapping
+    Page<RespuestaDTO> paginate(@PageableDefault(sort ="createdAt",direction = Sort.Direction.DESC, size = 10) Pageable pageable){
+        return respuestaService.paginate(pageable);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public RespuestaDTO save(@RequestBody RespuestaDTO respuestaDTO){
+        return respuestaService.save(respuestaDTO);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PutMapping(value = "/{id}")
+    RespuestaDTO update(@PathVariable(value = "id") Integer id,@RequestBody RespuestaDTO respuestaDTO){
+        return respuestaService.update(id,respuestaDTO);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "/{id}")
+    Boolean delete(@PathVariable(value = "id") Integer id){
+        return respuestaService.delete(id);
+    }
+
 
 }

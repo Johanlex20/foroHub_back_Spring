@@ -1,7 +1,7 @@
 package com.good_proyects.foro_hub.models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.good_proyects.foro_hub.models.dtos.Genero;
+import com.good_proyects.foro_hub.models.dtos.tema.Genero;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,5 +46,4 @@ public class Tema {
 
     @OneToMany(mappedBy = "temaId", fetch = FetchType.LAZY)
     private List<Respuesta> respuestas;
-
 }

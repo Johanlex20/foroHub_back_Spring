@@ -25,20 +25,16 @@ public class Respuesta {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tema_id")
-    @JsonIdentityReference(alwaysAsId = true)
-    @JsonProperty("temaId")
-    //@JsonBackReference
-    //@JsonIgnoreProperties("respuestas") // Ignora la lista de respuestas del tema para evitar la recursión
+    //@JsonIdentityReference(alwaysAsId = true)
+    //@JsonProperty("temaId")
     private Tema temaId;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
-    @JsonIdentityReference(alwaysAsId = true)
-    @JsonProperty("usuarioId")
-    //@JsonBackReference
-    //@JsonIgnoreProperties("respuestas") // Ignora la lista de respuestas del tema para evitar la recursión
-    private Usuario usuarioId;
+    //@JsonIdentityReference(alwaysAsId = true)
+    //@JsonProperty("usuarioId")
+     private Usuario usuarioId;
 
     @NotNull
     @Column(name = "created_at")

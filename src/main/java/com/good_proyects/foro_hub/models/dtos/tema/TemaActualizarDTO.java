@@ -1,16 +1,10 @@
-package com.good_proyects.foro_hub.models.dtos;
-import com.good_proyects.foro_hub.models.Respuesta;
+package com.good_proyects.foro_hub.models.dtos.tema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 @Data
-public class TemaDto {
-
-    private Integer id;
+public class TemaActualizarDTO {
 
     @NotNull
     @Size(min = 3, message = "Titulo debe tener almenos 3 caracteres!")
@@ -24,18 +18,5 @@ public class TemaDto {
 
     @NotNull
     private Genero genero;
-
-    @NotNull
-    private Integer usuarioId;
-
-    private String usuarioNombre;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
-
-    private Boolean activo;
-
-    private List<Respuesta> respuestas;
 
 }

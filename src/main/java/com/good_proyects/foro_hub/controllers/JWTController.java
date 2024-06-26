@@ -49,7 +49,8 @@ public class JWTController {
                 usuario.getNombre(),
                 usuario.getEmail(),
                 usuario.getPassword(),
-                usuario.getRole()
+                usuario.getRole(),
+                usuario.getId()
         ));
 
         return ResponseEntity

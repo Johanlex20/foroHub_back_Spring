@@ -1,16 +1,16 @@
 package com.good_proyects.foro_hub.services.iServices;
-import com.good_proyects.foro_hub.models.Respuesta;
+import com.good_proyects.foro_hub.models.dtos.respuesta.RespuestaDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface iRespuestaService {
 
-    List<Respuesta> findAll();
-    Page<Respuesta> paginate(Pageable pageable);
-    Respuesta findById(Integer id);
-    Respuesta save(Respuesta respuesta);
-    Respuesta update(Integer id, Respuesta respuesta);
+    List<RespuestaDTO> findAll();
+    Page<RespuestaDTO> paginate(Pageable pageable);
+    RespuestaDTO findById(Integer id);
+    RespuestaDTO save(RespuestaDTO respuestaDTO);
+    RespuestaDTO update(Integer id, RespuestaDTO respuestaDTO);
     Boolean delete(Integer id);
 
 }

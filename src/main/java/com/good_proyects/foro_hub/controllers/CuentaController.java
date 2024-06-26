@@ -39,7 +39,7 @@ public class CuentaController {
 
         usuarioRepository.save(usuario);
 
-        return new PerfilUsuarioDTO(usuario.getNombre(),usuario.getEmail(), usuario.getPassword(),usuario.getRole());
+        return new PerfilUsuarioDTO(usuario.getNombre(),usuario.getEmail(), usuario.getPassword(),usuario.getRole(), usuario.getId());
 
     }
 

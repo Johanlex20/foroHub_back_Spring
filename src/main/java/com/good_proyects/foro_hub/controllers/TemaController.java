@@ -1,7 +1,6 @@
 package com.good_proyects.foro_hub.controllers;
-import com.good_proyects.foro_hub.models.Tema;
-import com.good_proyects.foro_hub.models.dtos.TemaActualizarDTO;
-import com.good_proyects.foro_hub.models.dtos.TemaDto;
+import com.good_proyects.foro_hub.models.dtos.tema.TemaActualizarDTO;
+import com.good_proyects.foro_hub.models.dtos.tema.TemaDto;
 import com.good_proyects.foro_hub.services.iServices.iTemaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

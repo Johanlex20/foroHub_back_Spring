@@ -1,8 +1,8 @@
 package com.good_proyects.foro_hub.controllers;
 import com.good_proyects.foro_hub.exceptions.ResourceNotFoundException;
 import com.good_proyects.foro_hub.models.Tema;
-import com.good_proyects.foro_hub.models.dtos.Genero;
-import com.good_proyects.foro_hub.models.dtos.TemaDto;
+import com.good_proyects.foro_hub.models.dtos.tema.Genero;
+import com.good_proyects.foro_hub.models.dtos.tema.TemaDto;
 import com.good_proyects.foro_hub.repository.iTemaRepository;
 import com.good_proyects.foro_hub.services.iServices.iHomeService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,11 +1,16 @@
 package com.good_proyects.foro_hub.services;
 import com.good_proyects.foro_hub.exceptions.BadRequestExcepton;
 import com.good_proyects.foro_hub.exceptions.ResourceNotFoundException;
+import com.good_proyects.foro_hub.models.Respuesta;
 import com.good_proyects.foro_hub.models.Tema;
 import com.good_proyects.foro_hub.models.Usuario;
-import com.good_proyects.foro_hub.models.dtos.*;
+import com.good_proyects.foro_hub.models.dtos.respuesta.RespuestaDTO;
+import com.good_proyects.foro_hub.models.dtos.respuesta.RespuestaTemaDTO;
+import com.good_proyects.foro_hub.models.dtos.tema.TemaActualizarDTO;
+import com.good_proyects.foro_hub.models.dtos.tema.TemaDto;
 import com.good_proyects.foro_hub.repository.iTemaRepository;
 import com.good_proyects.foro_hub.repository.iUsuarioRepository;
+import com.good_proyects.foro_hub.services.iServices.iRespuestaService;
 import com.good_proyects.foro_hub.services.iServices.iTemaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -125,10 +130,32 @@ public class TemaService implements iTemaService {
         temaDto.setCreatedAt(tema.getCreatedAt());
         temaDto.setUpdatedAt(tema.getUpdatedAt());
         temaDto.setActivo(tema.getActivo());
-        temaDto.setRespuestas(tema.getRespuestas());
-        // No se establecen las respuestas aquí, ya que son datos reducidos
+        //temaDto.setRespuestas(tema.getRespuestas());
+
+        // Mapeo de respuestas si es necesario
+        if (tema.getRespuestas() != null && !tema.getRespuestas().isEmpty()) {
+            List<RespuestaTemaDTO> respuestasDto = tema.getRespuestas().stream()
+                    .map(this::manejoRespuesta) // Método para mapear Respuesta a RespuestaDTO
+                    .collect(Collectors.toList());
+            temaDto.setRespuestas(respuestasDto);
+        }
 
         return temaDto;
+    }
+
+    // Método para mapear Respuesta a RespuestaDTO
+    private RespuestaTemaDTO manejoRespuesta(Respuesta respuesta) {
+        RespuestaTemaDTO respuestaDto = new RespuestaTemaDTO();
+        respuestaDto.setId(respuesta.getId());
+        respuestaDto.setMensajeRespuesta(respuesta.getMensajeRespuesta());
+        //respuestaDto.setTemaId(respuesta.getTemaId().getId());
+        respuestaDto.setUsuarioId(respuesta.getUsuarioId().getId());
+        //respuestaDto.setActivo(respuesta.getActivo());
+        //respuestaDto.setCreatedAt(respuesta.getCreatedAt());
+        //respuestaDto.setUpdatedAt(respuesta.getUpdatedAt());
+
+        // Otros campos de RespuestaDTO que necesites
+        return respuestaDto;
     }
 
     private TemaDto manejorRespuestaClienteCorta(Tema tema) {
@@ -146,5 +173,4 @@ public class TemaService implements iTemaService {
 
         return temaDto;
     }
-
 }
