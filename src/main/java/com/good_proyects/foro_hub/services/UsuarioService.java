@@ -6,6 +6,7 @@ import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioDTO;
 import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioRegistroDTO;
 import com.good_proyects.foro_hub.repository.iUsuarioRepository;
 import com.good_proyects.foro_hub.services.iServices.iUsuarioServices;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -30,26 +31,25 @@ public class UsuarioService implements iUsuarioServices {
     public List<UsuarioDTO> findAll() {
         List<Usuario> usuarios = usuarioRepository.findAll();
         return usuarios.stream()
-                .map(this::manejoRespuestaCortaUsuarioCliente)
+                .map(this::manejoRespuestaUsuario)
                 .collect(Collectors.toList());
     }
 
     @Override
     public Page<UsuarioDTO> paginate(Pageable pageable) {
         Page<Usuario> usuarios = usuarioRepository.findAll(pageable);
-        return usuarios.map(this::manejoRespuestaCortaUsuarioCliente);
+        return usuarios.map(this::manejoRespuestaUsuario);
     }
 
     @Override
     public UsuarioDTO findById(Integer id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("ERROR ID: id no encontrado en la base de datos!"));
-        return manejoRespuestaCortaUsuarioCliente(usuario);
+        return manejoRespuestaUsuario(usuario);
     }
 
-    String img = "02f7ab2c-c0c9-4f54-9134-d6dece39f4fa.jpg";
+   // String img = "02f7ab2c-c0c9-4f54-9134-d6dece39f4fa.jpg";
     public UsuarioDTO save(UsuarioRegistroDTO usuarioRegistroDTO) {
-
         boolean usuarioExiste =usuarioRepository.existsByEmail(usuarioRegistroDTO.getEmail());
 
         if (usuarioExiste){
@@ -57,21 +57,23 @@ public class UsuarioService implements iUsuarioServices {
         }
 
         Usuario usuario = null;
-
         try{
-            usuario = new Usuario();
-            usuario.setNombre(usuarioRegistroDTO.getNombre());
-            usuario.setEmail(usuarioRegistroDTO.getEmail());
+            usuario = new ModelMapper().map(usuarioRegistroDTO,Usuario.class);
+            //Usuario usuario = new ModelMapper().map(usuarioRegistroDTO,Usuario.class);
+            //usuario = new Usuario();
+//            usuario.setNombre(usuarioRegistroDTO.getNombre());
+//            usuario.setEmail(usuarioRegistroDTO.getEmail());
+//            usuario.setFilePerfil(usuarioRegistroDTO.getFilePerfil());
+//            usuario.setRole(usuarioRegistroDTO.getRole());
+
             usuario.setPassword(passwordEncoder.encode(usuarioRegistroDTO.getPassword()));
-            usuario.setRole(usuarioRegistroDTO.getRole());
             usuario.setActivo(Boolean.TRUE);
             usuario.setCreatedAt(LocalDateTime.now());
-            usuario.setFilePerfil(img);
+            usuario = usuarioRepository.save(usuario);
         }catch (DataAccessException e){
             throw new BadRequestExcepton("ERROR CREACION: Falla no es posible realizar el proceso!", e);
         }
-        usuario = usuarioRepository.save(usuario);
-        return manejoRespuestaCortaUsuarioCliente(usuario);
+        return manejoRespuestaUsuario(usuario);
     }
 
     @Override
@@ -89,10 +91,10 @@ public class UsuarioService implements iUsuarioServices {
             if (usuario != null){
                 usuario.setNombre(usuarioRegistroDTO.getNombre());
                 usuario.setEmail(usuarioRegistroDTO.getEmail());
-                usuario.setPassword(passwordEncoder.encode(usuarioRegistroDTO.getPassword()));
                 usuario.setRole(usuarioRegistroDTO.getRole());
+                usuario.setFilePerfil(usuarioRegistroDTO.getFilePerfil());
+                usuario.setPassword(passwordEncoder.encode(usuarioRegistroDTO.getPassword()));
                 usuario.setUpdatedAt(LocalDateTime.now());
-                usuario.setFilePerfil(img);
             }else {
                 throw new BadRequestExcepton("ERROR ACTUALIZAR: Usuario no se pudo actualizar!");
             }
@@ -100,7 +102,7 @@ public class UsuarioService implements iUsuarioServices {
             throw new BadRequestExcepton("ERROR ACTUALIZACION: Falla no es posible realizar el proceso!" , e);
         }
         usuario = usuarioRepository.save(usuario);
-        return manejoRespuestaCortaUsuarioCliente(usuario);
+        return manejoRespuestaUsuario(usuario);
     }
 
 //    @Override
@@ -120,18 +122,19 @@ public class UsuarioService implements iUsuarioServices {
     }
 
 
-    private UsuarioDTO manejoRespuestaCortaUsuarioCliente(Usuario usuario) {
-        UsuarioDTO  usuarioDTO = new UsuarioDTO();
-        usuarioDTO.setId(usuario.getId());
-        usuarioDTO.setNombre(usuario.getNombre());
-        usuarioDTO.setEmail(usuario.getEmail());
-        usuarioDTO.setPassword(usuario.getPassword());
-        usuarioDTO.setRole(usuario.getRole());
-        usuarioDTO.setUpdatedAt(LocalDateTime.now());
-        usuarioDTO.setFilePerfil(img);
-        usuarioDTO.setCreatedAt(usuario.getCreatedAt());
-        usuarioDTO.setUpdatedAt(usuario.getUpdatedAt());
-        usuarioDTO.setActivo(usuario.getActivo()); // No se establecen las respuestas ni temas aquí, ya que son datos reducidos
+    private UsuarioDTO manejoRespuestaUsuario(Usuario usuario) {
+
+        UsuarioDTO usuarioDTO = new ModelMapper().map(usuario,UsuarioDTO.class);
+        //UsuarioDTO  usuarioDTO = new UsuarioDTO();
+//        usuarioDTO.setId(usuario.getId());
+//        usuarioDTO.setNombre(usuario.getNombre());
+//        usuarioDTO.setEmail(usuario.getEmail());
+//        usuarioDTO.setPassword(usuario.getPassword());
+//        usuarioDTO.setRole(usuario.getRole());
+//        usuarioDTO.setFilePerfil(usuario.getFilePerfil());
+//        usuarioDTO.setCreatedAt(usuario.getCreatedAt());
+//        usuarioDTO.setUpdatedAt(usuario.getUpdatedAt());
+        //usuarioDTO.setActivo(usuario.getActivo()); // No se establecen las respuestas ni temas aquí, ya que son datos reducidos
         return  usuarioDTO;
     }
 }

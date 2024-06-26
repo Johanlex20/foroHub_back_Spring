@@ -14,6 +14,6 @@ public class PerfilUsuarioDTO {
     private String email;
     private String password;
     private Role role;
-    private Integer id;
+    //private Integer id;
 
 }

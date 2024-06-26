@@ -5,6 +5,7 @@ import com.good_proyects.foro_hub.models.dtos.tema.Genero;
 import com.good_proyects.foro_hub.models.dtos.tema.TemaDto;
 import com.good_proyects.foro_hub.repository.iTemaRepository;
 import com.good_proyects.foro_hub.services.iServices.iHomeService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,18 +52,18 @@ public class HomeController implements iHomeService {
     }
 
     private TemaDto manejorRespuestaClienteCorta(Tema tema) {
-        TemaDto temaDto = new TemaDto();
-        temaDto.setId(tema.getId());
-        temaDto.setTitulo(tema.getTitulo());
-        temaDto.setMensaje(tema.getMensaje());
-        temaDto.setGenero(tema.getGenero());
-        temaDto.setUsuarioId(tema.getUsuarioId().getId());
-        temaDto.setUsuarioNombre(tema.getUsuarioId().getNombre());
-        temaDto.setCreatedAt(tema.getCreatedAt());
-        temaDto.setUpdatedAt(tema.getUpdatedAt());
-        temaDto.setActivo(tema.getActivo());
+        TemaDto temaDto = new ModelMapper().map(tema, TemaDto.class);
+        //TemaDto temaDto = new TemaDto();
+//        temaDto.setId(tema.getId());
+//        temaDto.setTitulo(tema.getTitulo());
+//        temaDto.setMensaje(tema.getMensaje());
+//        temaDto.setGenero(tema.getGenero());
+//        temaDto.setUsuarioId(tema.getUsuarioId().getId());
+//        temaDto.setUsuarioNombre(tema.getUsuarioId().getNombre());
+//        temaDto.setCreatedAt(tema.getCreatedAt());
+//        temaDto.setUpdatedAt(tema.getUpdatedAt());
+//        temaDto.setActivo(tema.getActivo());
         //temaDto.setRespuestas(tema.getRespuestas()); // Aquí puedes ajustar según tus necesidades
-
         return temaDto;
     }
 }

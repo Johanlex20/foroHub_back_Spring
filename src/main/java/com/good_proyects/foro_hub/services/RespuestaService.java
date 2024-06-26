@@ -9,6 +9,7 @@ import com.good_proyects.foro_hub.repository.iRespuestaRepository;
 import com.good_proyects.foro_hub.repository.iTemaRepository;
 import com.good_proyects.foro_hub.repository.iUsuarioRepository;
 import com.good_proyects.foro_hub.services.iServices.iRespuestaService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,7 +53,7 @@ public class RespuestaService implements iRespuestaService {
 
     @Override
     public RespuestaDTO save(RespuestaDTO respuestaDTO) {
-        Respuesta respuesta = new Respuesta();
+
 
         if (respuestaDTO.getUsuarioId() == null || respuestaDTO.getTemaId() == null) {
             throw new IllegalArgumentException("Usuario ID and Tema ID must not be null");
@@ -70,6 +71,7 @@ public class RespuestaService implements iRespuestaService {
         Tema tema = temaRepository.findById(respuestaDTO.getTemaId())
                 .orElseThrow(() -> new ResourceNotFoundException("ERROR ID: tema id no encontrado!"));
 
+        Respuesta respuesta = new Respuesta();
         respuesta.setMensajeRespuesta(respuestaDTO.getMensajeRespuesta());
         respuesta.setTemaId(tema);
         respuesta.setUsuarioId(usuario);
@@ -112,15 +114,15 @@ public class RespuestaService implements iRespuestaService {
     }
 
     public RespuestaDTO manejoRespuesta(Respuesta respuesta){
-        RespuestaDTO respuestaDTO = new RespuestaDTO();
-        respuestaDTO.setId(respuesta.getId());
-        respuestaDTO.setMensajeRespuesta(respuesta.getMensajeRespuesta());
-        respuestaDTO.setTemaId((respuesta.getTemaId().getId()));
-        respuestaDTO.setUsuarioId(respuesta.getUsuarioId().getId());
-        respuestaDTO.setActivo(respuesta.getActivo());
-        respuestaDTO.setCreatedAt(respuesta.getCreatedAt());
-        respuestaDTO.setUpdatedAt(respuesta.getUpdatedAt());
-
+        RespuestaDTO respuestaDTO = new ModelMapper().map(respuesta, RespuestaDTO.class);
+        //RespuestaDTO respuestaDTO = new RespuestaDTO();
+//        respuestaDTO.setId(respuesta.getId());
+//        respuestaDTO.setMensajeRespuesta(respuesta.getMensajeRespuesta());
+//        respuestaDTO.setTemaId((respuesta.getTemaId().getId()));
+//        respuestaDTO.setUsuarioId(respuesta.getUsuarioId().getId());
+//        respuestaDTO.setActivo(respuesta.getActivo());
+//        respuestaDTO.setCreatedAt(respuesta.getCreatedAt());
+//        respuestaDTO.setUpdatedAt(respuesta.getUpdatedAt());
         return  respuestaDTO;
     }
 
