@@ -120,24 +120,6 @@ public class UsuarioService implements iUsuarioServices {
     }
 
 
-
-    private UsuarioDTO manejoRespuestaUsuarioCliente(Usuario usuario) {
-        UsuarioDTO  usuarioDTO = new UsuarioDTO();
-         usuarioDTO.setId(usuario.getId());
-         usuarioDTO.setNombre(usuario.getNombre());
-         usuarioDTO.setEmail(usuario.getEmail());
-         usuarioDTO.setPassword(usuario.getPassword());
-         usuarioDTO.setRole(usuario.getRole());
-         usuarioDTO.setFilePerfil(img);
-         usuarioDTO.setCreatedAt(usuario.getCreatedAt());
-         usuarioDTO.setUpdatedAt(usuario.getUpdatedAt());
-         usuarioDTO.setActivo(usuario.getActivo());
-         usuarioDTO.setRespuestas(usuario.getRespuestas());
-         usuarioDTO.setTemas(usuario.getTemas()); // Se establecen las respuestas aquí, ya que son datos reducidos
-
-        return  usuarioDTO;
-    }
-
     private UsuarioDTO manejoRespuestaCortaUsuarioCliente(Usuario usuario) {
         UsuarioDTO  usuarioDTO = new UsuarioDTO();
         usuarioDTO.setId(usuario.getId());
@@ -152,5 +134,5 @@ public class UsuarioService implements iUsuarioServices {
         usuarioDTO.setActivo(usuario.getActivo()); // No se establecen las respuestas ni temas aquí, ya que son datos reducidos
         return  usuarioDTO;
     }
-
 }
+

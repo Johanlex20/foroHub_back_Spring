@@ -6,6 +6,7 @@ import com.good_proyects.foro_hub.models.dtos.autenticacion.RespuestaAutenticaci
 import com.good_proyects.foro_hub.models.dtos.autenticacion.SolicitudAutenticacion;
 import com.good_proyects.foro_hub.repository.iUsuarioRepository;
 import com.good_proyects.foro_hub.security.jwt.ProveedorDeToken;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class JWTController {
     private final iUsuarioRepository usuarioRepository;
 
     @PostMapping(value = "/autenticacion")
-    public ResponseEntity<?> autenticacion(@RequestBody SolicitudAutenticacion solicitudAutenticacion){
+    public ResponseEntity<?> autenticacion(@RequestBody @Valid SolicitudAutenticacion solicitudAutenticacion){
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 solicitudAutenticacion.getEmail(),
                 solicitudAutenticacion.getPassword()
