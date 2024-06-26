@@ -71,6 +71,7 @@ public class ProveedorDeToken implements iProveedorDeToken {
     public boolean validacionToken(String token) {
         try {
             jwtParser.parseClaimsJws(token);
+            return true;
         }catch (JwtException e){
             log.error("Token validation error {}", e.getMessage());
         }
