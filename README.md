@@ -2,30 +2,18 @@
 <div align="center">
   <h1 align="center">
 
-<<<<<<< HEAD
-=======
-[![banner-foro-hub-git-hub.png](https://i.postimg.cc/J4xHnJ9F/banner-foro-hub-git-hub.png)](https://postimg.cc/56H2KH95)
+[![bannernew.jpg](https://i.postimg.cc/NF3tGNQX/bannernew.jpg)](https://postimg.cc/8fm9tmJk)
 
-
->>>>>>> 2c662e952b3ae6ede0b008ec6b80be1590a7d981
 <br />
-<br />  
+ 
 👋 WELCOME FORO HUB
 
-[![Copia-de-reallygreatsite-2.png](https://i.postimg.cc/J4xHnJ9F/banner-foro-hub-git-hub.png)](https://postimg.cc/CBkJfDSK)
 
 
-<br />
-<br />
 GOOD PROJECT
-
-[![Copia-de-reallygreatsite-2.png](https://i.postimg.cc/J4xHnJ9F/banner-foro-hub-git-hub.png)](https://postimg.cc/CBkJfDSK)
-
-<br />
 <br />
 
   </h1>
-
 </div>
 
 # 💻 Tech Stack:
