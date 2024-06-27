@@ -30,14 +30,21 @@ Desarrollo basado en los criterios del Challengs 3 Creacion FORO HUB, un aplicat
 
 
 ## 💻 FUNCIONES DEL API DESARROLLO💻
-🌟 LISTAR
-🌟 FILTRAR ID
-🌟 CRUD USUARIO, TEMA, RESPUESTA
-🌟 SUBIDA DE ARCHIVOS
+- 🌟 LISTAR USUARIO, TEMA, RESPUESTA
+- 🌟 FILTRAR ID
+- 🌟 ELIMINACION ID
+- 🌟 CRUD USUARIO, TEMA, RESPUESTA
+- 🌟 SUBIDA DE ARCHIVOS
+- 🌟 LOGIN, AUTENTICACIÓN
+- 🌟 MANEJO ROLES
+- 🌟 FILTROS Y PERMISOS DE SEGUIRIDAD POR ROLES
+- 🌟 VALIDACIONES
+- 🌟 MANEJO DE EXCPIONES HANDLER
 
 
 # 🌟   URL FUNCIONES   🌟
 [![DOCUMENTACION-SWAGGER-1.jpg](https://i.postimg.cc/CLrMXNyw/DOCUMENTACION-SWAGGER-1.jpg)](https://postimg.cc/xcHSbLTZ)
+[![DOCUMENTACION-SWAGGER-3.jpg](https://i.postimg.cc/m2c3PzpL/DOCUMENTACION-SWAGGER-3.jpg)](https://postimg.cc/w7pRPvdZ)
 
 # 🌟   Mapeo Base de Datos   🌟
 [![DOCUMENTACION-SWAGGER-4.jpg](https://i.postimg.cc/3rBxChn4/DOCUMENTACION-SWAGGER-4.jpg)](https://postimg.cc/hhXnckFc)
@@ -47,11 +54,14 @@ Desarrollo basado en los criterios del Challengs 3 Creacion FORO HUB, un aplicat
 
 ## 💻 IDES/ INSTALACIÓN O REQUERIMIENTOS💻
 - MAVEN
-- LIBRERIAS SPRING - JPA - MYSQL
-- INTELIJ IDEA
+- LIBRERIA JPA 
+- MYSQL
+- LOMBOK
+- INTELLIJ IDEA
 - SWAGGER
 - OPEN API
 - SPRING SECURITY
+- SPRING WEB
 
 ## 🌟 Tecnologías usadas 🌟
 | Tecnología | Versión | Descripción                                                                     |
