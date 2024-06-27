@@ -3,7 +3,7 @@
 <div align="center">
   <h1 align="center">
 
-[![Copia-de-reallygreatsite-2.png](https://i.postimg.cc/J4xHnJ9F/banner-foro-hub-git-hub.png)](https://postimg.cc/CBkJfDSK)
+[![banner-foro-hub-git-hub.png](https://i.postimg.cc/J4xHnJ9F/banner-foro-hub-git-hub.png)](https://postimg.cc/56H2KH95)
 <br />
 <br />  
 👋 WELCOME FORO HUB
