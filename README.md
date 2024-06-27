@@ -1,12 +1,12 @@
 
-
 <div align="center">
   <h1 align="center">
 
-[![Copia-de-reallygreatsite-2.png](https://i.postimg.cc/J4xHnJ9F/banner-foro-hub-git-hub.png)](https://postimg.cc/CBkJfDSK)
 <br />
 <br />  
 👋 WELCOME FORO HUB
+
+[![Copia-de-reallygreatsite-2.png](https://i.postimg.cc/J4xHnJ9F/banner-foro-hub-git-hub.png)](https://postimg.cc/CBkJfDSK)
 <br />
 <br />
 GOOD PROJECT
