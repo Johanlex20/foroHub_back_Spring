@@ -27,7 +27,7 @@ public class RestHandlerException {
     ProblemDetail handlerValidationError(MethodArgumentNotValidException ex){
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.UNPROCESSABLE_ENTITY);
         problemDetail.setTitle("ERROR ARGUMENTO: Metodo no valido!");
-        problemDetail.setType(URI.create("https://Good_Proyects.com/error/Argument_not_valid"));
+        problemDetail.setType(URI.create("https://Good_Projects.com/error/Argument_not_valid"));
         problemDetail.setDetail("ERROR: No es posible realizar la consulta ya que tiene errores!");
 
         Set<String> errors = new HashSet<>();
@@ -46,7 +46,7 @@ public class RestHandlerException {
     ProblemDetail handlerResourceNotFoundException(ResourceNotFoundException ex){
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, ex.getMessage());
         problemDetail.setTitle("SOLICITUD NO ENCONTRADA");
-        problemDetail.setType(URI.create("https://Good_Proyects.com/error/not_found"));
+        problemDetail.setType(URI.create("https://Good_Projects.com/error/not_found"));
         return problemDetail;
     }
 
@@ -55,7 +55,7 @@ public class RestHandlerException {
     ProblemDetail handlerBadRequestException(BadRequestExcepton ex){
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
         problemDetail.setTitle("SOLICITUD INCORRECTA");
-        problemDetail.setType(URI.create("https://Good_Proyects.com/error/bad_request"));
+        problemDetail.setType(URI.create("https://Good_Projects.com/error/bad_request"));
         return problemDetail;
     }
 }
