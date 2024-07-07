@@ -18,4 +18,5 @@ public interface iTemaRepository extends JpaRepository<Tema,Integer> {
     List<Tema> findTemasByDate(@Param("date") LocalDate date);
 
 
+    List<Tema> findTop10ByOrderByCreatedAtDesc();
 }

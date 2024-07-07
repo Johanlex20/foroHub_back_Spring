@@ -123,8 +123,9 @@ public class TemaService implements iTemaService {
 //        temaDto.setTitulo(tema.getTitulo());
 //        temaDto.setMensaje(tema.getMensaje());
 //        temaDto.setGenero(tema.getGenero());
-//        temaDto.setUsuarioId(tema.getUsuarioId().getId()); // Aquí solo se asigna el ID del usuario
-//        temaDto.setUsuarioNombre(tema.getUsuarioId().getNombre()); // Aquí solo se asigna el nombre del usuario
+//          temaDto.setUsuarioId(tema.getUsuarioId().getId()); // Aquí solo se asigna el ID del usuario
+//          temaDto.setUsuarioNombre(tema.getUsuarioId().getNombre()); // Aquí solo se asigna el nombre del usuario
+          temaDto.setFilePerfil(tema.getUsuarioId().getFilePerfil()); // Aquí solo se asigna el nombre del usuario
 //        temaDto.setCreatedAt(tema.getCreatedAt());
 //        temaDto.setUpdatedAt(tema.getUpdatedAt());
 //        temaDto.setActivo(tema.getActivo());

@@ -5,5 +5,4 @@ public class RespuestaTemaDTO {
     private Integer id;
     private String mensajeRespuesta;
     private Integer usuarioId;
-    private String usuarioNombre;
 }

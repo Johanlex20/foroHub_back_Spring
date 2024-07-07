@@ -29,6 +29,8 @@ public class TemaDto {
 
     private String usuarioNombre;
 
+    private String filePerfil;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;

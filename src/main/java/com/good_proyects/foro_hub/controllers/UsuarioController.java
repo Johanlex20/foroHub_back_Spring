@@ -26,7 +26,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public Page<UsuarioDTO> paginate(@PageableDefault(sort = "nombre", direction = Sort.Direction.ASC, size = 2) Pageable pageable) {
+    public Page<UsuarioDTO> paginate(@PageableDefault(sort = "nombre", direction = Sort.Direction.ASC, size = 10) Pageable pageable) {
         return usuarioServices.paginate(pageable);
     }
 

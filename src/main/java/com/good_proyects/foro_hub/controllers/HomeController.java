@@ -51,6 +51,19 @@ public class HomeController implements iHomeService {
         }
     }
 
+    @GetMapping("/last-temas")
+    List<TemaDto> getLastTemas(){
+        List<Tema> temas =temaRepository.findTop10ByOrderByCreatedAtDesc();
+
+        if (temas == null || temas.isEmpty()){
+            throw new ResourceNotFoundException("Temas no encontrados!");
+        }else {
+            return temas.stream()
+                    .map(this::manejorRespuestaClienteCorta)// Transforma cada Tema a TemaDto reducido
+                    .collect(Collectors.toList());
+        }
+    }
+
     private TemaDto manejorRespuestaClienteCorta(Tema tema) {
         TemaDto temaDto = new ModelMapper().map(tema, TemaDto.class);
         //TemaDto temaDto = new TemaDto();
@@ -60,6 +73,7 @@ public class HomeController implements iHomeService {
 //        temaDto.setGenero(tema.getGenero());
 //        temaDto.setUsuarioId(tema.getUsuarioId().getId());
 //        temaDto.setUsuarioNombre(tema.getUsuarioId().getNombre());
+          temaDto.setFilePerfil(tema.getUsuarioId().getFilePerfil());
 //        temaDto.setCreatedAt(tema.getCreatedAt());
 //        temaDto.setUpdatedAt(tema.getUpdatedAt());
 //        temaDto.setActivo(tema.getActivo());
