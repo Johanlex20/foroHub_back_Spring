@@ -110,6 +110,8 @@ public class TemaService implements iTemaService {
         return manejoRespuestaCliente(tema, false);
     }
 
+
+
     @Override
     public Boolean delete(Integer id) {
         temaRepository.deleteById(id);
@@ -148,6 +150,7 @@ public class TemaService implements iTemaService {
 //        respuestaDto.setMensajeRespuesta(respuesta.getMensajeRespuesta());
 //        respuestaDto.setUsuarioId(respuesta.getUsuarioId().getId());
 //        respuestaDto.setUsuarioNombre(respuesta.getUsuarioId().getNombre());
+        respuestaDto.setFilePerfilRespuesta(respuesta.getUsuarioId().getFilePerfil());
         return respuestaDto;
     }
 

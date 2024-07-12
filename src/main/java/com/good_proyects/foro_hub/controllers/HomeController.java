@@ -7,6 +7,10 @@ import com.good_proyects.foro_hub.repository.iTemaRepository;
 import com.good_proyects.foro_hub.services.iServices.iHomeService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -53,7 +58,7 @@ public class HomeController implements iHomeService {
 
     @GetMapping("/last-temas")
     List<TemaDto> getLastTemas(){
-        List<Tema> temas =temaRepository.findTop10ByOrderByCreatedAtDesc();
+        List<Tema> temas =temaRepository.findTop9ByOrderByCreatedAtDesc();
 
         if (temas == null || temas.isEmpty()){
             throw new ResourceNotFoundException("Temas no encontrados!");
@@ -62,6 +67,13 @@ public class HomeController implements iHomeService {
                     .map(this::manejorRespuestaClienteCorta)// Transforma cada Tema a TemaDto reducido
                     .collect(Collectors.toList());
         }
+    }
+
+    @GetMapping("/topicos")
+    private Page<TemaDto> paginate(@PageableDefault(sort = "createdAt",direction = Sort.Direction.ASC ,size = 10 ) Pageable pageable){
+        Page<Tema> temas =temaRepository.findAll(pageable);
+       return temas.map(this::manejorRespuestaClienteCorta);
+
     }
 
     private TemaDto manejorRespuestaClienteCorta(Tema tema) {

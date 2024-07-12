@@ -1,6 +1,7 @@
 package com.good_proyects.foro_hub.controllers;
 import com.good_proyects.foro_hub.exceptions.BadRequestExcepton;
 import com.good_proyects.foro_hub.models.Usuario;
+import com.good_proyects.foro_hub.models.dtos.Role;
 import com.good_proyects.foro_hub.models.dtos.autenticacion.PerfilUsuarioDTO;
 import com.good_proyects.foro_hub.models.dtos.usuario.UsuarioRegistroDTO;
 import com.good_proyects.foro_hub.repository.iUsuarioRepository;
@@ -32,12 +33,13 @@ public class CuentaController {
         Usuario usuario = new ModelMapper().map(usuarioRegistroDTO,Usuario.class);
         usuario.setPassword(passwordEncoder.encode(usuarioRegistroDTO.getPassword()));
         usuario.setActivo(Boolean.TRUE);
+        usuario.setRole(Role.USER);
         usuario.setCreatedAt(LocalDateTime.now());
         usuarioRepository.save(usuario);
 //        usuario.setFilePerfil(usuarioRegistroDTO.getFilePerfil());
 //        usuario.setNombre(usuarioRegistroDTO.getNombre());
 //        usuario.setEmail(usuarioRegistroDTO.getEmail());
-//        usuario.setRole(usuarioRegistroDTO.getRole());
+
         //return new PerfilUsuarioDTO(usuario.getNombre(),usuario.getEmail(), usuario.getPassword(),usuario.getRole(), usuario.getId());
         return new ModelMapper().map(usuario, PerfilUsuarioDTO.class);
     }

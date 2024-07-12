@@ -20,8 +20,8 @@ public class UsuarioRegistroDTO {
     @Size(min = 5, message = "El password debe tener al menos 5 caracteres!")
     private String password;
 
-    @NotNull
-    private Role role;
+//    @NotNull
+   private Role role;
 
     @NotEmpty
     private String filePerfil;

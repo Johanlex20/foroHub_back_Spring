@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PerfilUsuarioDTO {
 
-
+    private Integer id;
     private String nombre;
     private String email;
     private String password;
     private Role role;
-    //private Integer id;
+    private String filePerfil;
 
 }
