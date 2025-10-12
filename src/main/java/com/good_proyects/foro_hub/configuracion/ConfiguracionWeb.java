@@ -13,7 +13,8 @@ public class ConfiguracionWeb {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:4200","http://good_proyects.com")
+                        //.allowedOrigins("http://localhost:4200","http://good_proyects.com")
+                        .allowedOrigins("http://192.168.20.103:4200","http://good_proyects.com")
                         .allowedMethods("*")
                         .exposedHeaders("*");
             }
