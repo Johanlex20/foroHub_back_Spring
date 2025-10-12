@@ -23,7 +23,7 @@ WORKDIR /app
 COPY --from=build /app/target/foro_hub-0.0.1-SNAPSHOT.jar app.jar
 
 # Puerto por defecto
-EXPOSE 8080
+EXPOSE 808
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
 
