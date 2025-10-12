@@ -44,6 +44,6 @@ public class Tema {
 
     private Boolean activo;
 
-    @OneToMany(mappedBy = "temaId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "temaId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Respuesta> respuestas;
 }

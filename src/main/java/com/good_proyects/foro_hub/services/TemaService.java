@@ -69,7 +69,7 @@ public class TemaService implements iTemaService {
 //            Tema tema = new Tema();
 //            tema.setTitulo(temaDto.getTitulo());
 //            tema.setMensaje(temaDto.getMensaje());
-//            tema.setGenero(temaDto.getGenero());
+           //tema.setGenero(temaDto.getGenero());
             tema.setCreatedAt(LocalDateTime.now());
             tema.setUsuarioId(usuario);
             tema.setActivo(Boolean.TRUE);
