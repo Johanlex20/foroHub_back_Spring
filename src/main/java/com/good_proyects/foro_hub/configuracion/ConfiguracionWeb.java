@@ -14,9 +14,11 @@ public class ConfiguracionWeb {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
                         //.allowedOrigins("http://localhost:4200","http://good_proyects.com")
-                        .allowedOrigins("http://192.168.20.103:4200","http://good_proyects.com")
+                        //.allowedOrigins("http://192.168.20.103:4200","http://good_proyects.com")
+                        .allowedOrigins("https://forogood.modoblu.com", "http://localhost:4200")
                         .allowedMethods("*")
-                        .exposedHeaders("*");
+                        .exposedHeaders("*")
+                        .allowCredentials(true);  // <--- importante si envías cookies o cabeceras de autorización
             }
         };
     }
