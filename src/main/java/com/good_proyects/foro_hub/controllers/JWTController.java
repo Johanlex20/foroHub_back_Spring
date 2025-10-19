@@ -1,4 +1,5 @@
 package com.good_proyects.foro_hub.controllers;
+import com.good_proyects.foro_hub.exceptions.BadRequestExcepton;
 import com.good_proyects.foro_hub.exceptions.ResourceNotFoundException;
 import com.good_proyects.foro_hub.models.Usuario;
 import com.good_proyects.foro_hub.models.dtos.autenticacion.PerfilUsuarioDTO;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping(value = "/api")
 @AllArgsConstructor
@@ -30,35 +33,42 @@ public class JWTController {
 
     @PostMapping(value = "/autenticacion")
     public ResponseEntity<?> autenticacion(@RequestBody @Valid SolicitudAutenticacion solicitudAutenticacion){
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                solicitudAutenticacion.getEmail(),
-                solicitudAutenticacion.getPassword()
-        );
 
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        try {
 
-        String token = proveedorDeToken.crearToken(authentication);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.AUTHORIZATION, "Bearer "+ token);
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                    solicitudAutenticacion.getEmail(),
+                    solicitudAutenticacion.getPassword()
+            );
 
-        Usuario usuario = usuarioRepository
-                .findByEmail(solicitudAutenticacion.getEmail())
-                .orElseThrow(ResourceNotFoundException::new);
+            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        RespuestaAutenticacion respuestaAutenticacion = new RespuestaAutenticacion(token, new PerfilUsuarioDTO(
-                usuario.getId(),
-                usuario.getNombre(),
-                usuario.getEmail(),
-                usuario.getPassword(),
-                usuario.getRole(),
-                usuario.getFilePerfil()
-        ));
+            String token = proveedorDeToken.crearToken(authentication);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.AUTHORIZATION, "Bearer "+ token);
 
-        return ResponseEntity
-                .ok()
-                .headers(headers)
-                .body(respuestaAutenticacion);
+            Usuario usuario = usuarioRepository
+                    .findByEmail(solicitudAutenticacion.getEmail())
+                    .orElseThrow(ResourceNotFoundException::new);
+
+            RespuestaAutenticacion respuestaAutenticacion = new RespuestaAutenticacion(token, new PerfilUsuarioDTO(
+                    usuario.getId(),
+                    usuario.getNombre(),
+                    usuario.getEmail(),
+                    usuario.getPassword(),
+                    usuario.getRole(),
+                    usuario.getFilePerfil()
+            ));
+
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .body(respuestaAutenticacion);
+
+        } catch (org.springframework.security.authentication.BadCredentialsException ex){
+            throw new BadRequestExcepton("ERROR EMAIL O CONTRASEÑA: INCORRECTA!");
+        }
 
     }
 
