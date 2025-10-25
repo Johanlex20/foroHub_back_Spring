@@ -1,7 +1,26 @@
 package com.good_proyects.foro_hub.models.dtos.tema;
 public enum Genero {
-    TECNOLOGIA,
     COCINA,
     DEPORTE,
-    VIDEO_JUEGOS
+    TECNOLOGIA,
+    VIDEO_JUEGOS,
+    MUSICA,
+    CINE,
+    ARTE,
+    MODA,
+    SALUD,
+    EDUCACION,
+    CIENCIA,
+    MEDIO_AMBIENTE,
+    POLITICA,
+    ECONOMIA,
+    LITERATURA,
+    HISTORIA,
+    TURISMO,
+    ANIMALES,
+    AUTOMOVILISMO,
+    FOTOGRAFIA,
+    ENTRETENIMIENTO,
+    NEGOCIOS,
+    RELIGION
 }
