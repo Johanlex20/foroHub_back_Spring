@@ -15,7 +15,7 @@ public class ConfiguracionWeb {
                 registry.addMapping("/api/**")
                         //.allowedOrigins("http://localhost:4200","http://good_proyects.com")
                         //.allowedOrigins("http://192.168.20.103:4200","http://good_proyects.com")
-                        .allowedOrigins("https://forogood.modoblu.com", "http://localhost:4200")
+                        .allowedOrigins("https://forogood.faseblu.com", "http://localhost:4200")
                         .allowedMethods("*")
                         .exposedHeaders("*")
                         .allowCredentials(true);  // <--- importante si envías cookies o cabeceras de autorización
