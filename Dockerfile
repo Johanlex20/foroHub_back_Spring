@@ -16,7 +16,7 @@ RUN mvn clean package -DskipTests
 # ============================
 #  Etapa 2: Imagen final (runtime)
 # ============================
-FROM openjdk:21-jdk-slim
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 
 # Copiamos solo el JAR compilado desde la etapa anterior
